@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Planner</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <h1>🗓️ Daily Planner</h1>
+
+  <!-- Add Task Form -->
+  <form action="/add" method="POST">
+    <input
+      type="text"
+      name="description"
+      placeholder="New task…"
+      required
+    />
+    <input type="date" name="dueDate" />
+    <button type="submit">Add</button>
+  </form>
+
+  <!-- Task List -->
+  <ul>
+    <% tasks.forEach(task => { %>
+      <li>
+        <span>
+          <%= task.description %>
+          <% if (task.dueDate) { %>
+            — due <%= task.dueDate.toISOString().slice(0,10) %>
+          <% } %>
+        </span>
+        <form action="/delete/<%= task._id %>" method="POST" style="display:inline">
+          <button type="submit">✓</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
